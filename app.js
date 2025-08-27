@@ -65,7 +65,7 @@ mongoose
   .connect(process.env.MONGO_URI, {
     dbName: "backendapii",
   })
-  .then(() => console.log("✅ MongoDB connected"))
+  .then((c) => console.log(`✅ MongoDB connected ${c.connection.host}`))
   .catch((e) => console.log("❌ MongoDB error:", e));
 
 // Schema
