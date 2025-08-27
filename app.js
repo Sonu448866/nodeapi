@@ -147,7 +147,7 @@ app.post("/item/new", isAuthanticated, async (req, res) => {
   }
 });
 
-app.get("/", isAuthanticated, async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const items = await Item.find().sort({ createdDate: -1 });
     res.json({
