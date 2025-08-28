@@ -124,7 +124,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 // Route
-app.post("/item/new", isAuthanticated, async (req, res) => {
+app.post("/api/item/new", isAuthanticated, async (req, res) => {
   try {
     const { title, category, location, description, email } = req.body;
 
@@ -147,7 +147,7 @@ app.post("/item/new", isAuthanticated, async (req, res) => {
   }
 });
 
-app.get("/", async (req, res) => {
+app.get("/api/", async (req, res) => {
   try {
     const items = await Item.find().sort({ createdDate: -1 });
     res.json({
@@ -161,7 +161,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/item/:id", isAuthanticated, async (req, res) => {
+app.get("/api/item/:id", isAuthanticated, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -178,7 +178,7 @@ app.get("/item/:id", isAuthanticated, async (req, res) => {
   }
 });
 
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   const { name, email, password } = req.body;
   let user = await User.findOne({ email });
   if (user) {
@@ -197,7 +197,7 @@ app.post("/register", async (req, res) => {
   sendToken(user, res, "Registered Successfully", 201);
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
@@ -217,7 +217,7 @@ app.post("/login", async (req, res) => {
   sendToken(user, res, `Welcome Back:${user.name}`, 200);
 });
 
-app.get("/logout", isAuthanticated, (req, res) => {
+app.get("/api/logout", isAuthanticated, (req, res) => {
   try {
     res
       .status(200)
@@ -239,7 +239,7 @@ app.get("/logout", isAuthanticated, (req, res) => {
   }
 });
 
-app.get("/getMyDetail", isAuthanticated, async (req, res) => {
+app.get("/api/getMyDetail", isAuthanticated, async (req, res) => {
   try {
     const userid = req.user._id;
 
