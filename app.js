@@ -31,7 +31,7 @@ const sendToken = (user, res, message, statusCode = 200) => {
       maxAge: 15 * 60 * 1000,
 
       secure: process.env.NODE_ENV == "Development" ? false : true,
-      // sameSite: process.env.NODE_ENV == "Development" ? "lex" : "none",
+      sameSite: process.env.NODE_ENV == "Development" ? "lex" : "none",
     })
     .json({
       success: true,
@@ -225,7 +225,7 @@ app.get("/api/logout", isAuthanticated, (req, res) => {
         expires: new Date(0),
         httpOnly: true,
         secure: process.env.NODE_ENV == "Development" ? false : true,
-        // sameSite: process.env.NODE_ENV == "Development" ? "lex" : "none",
+        sameSite: process.env.NODE_ENV == "Development" ? "lex" : "none",
       })
       .json({
         success: true,
