@@ -201,7 +201,7 @@ app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       message: "Invalid email or password",
     });
@@ -209,7 +209,7 @@ app.post("/api/login", async (req, res) => {
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return res.status(404).json({
+    return res.status(400).json({
       success: false,
       message: "Incorrect password",
     });
