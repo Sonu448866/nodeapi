@@ -257,7 +257,7 @@ app.get("/api/getMyDetail", isAuthanticated, async (req, res) => {
   }
 });
 
-app.delete("/api/item/getMyDetail/:id", async (req, res) => {
+app.delete("/api/getMyDetail/:id", async (req, res) => {
   try {
     const { id } = req.params; // ✅ Grab ID from params
     console.log("Deleting item with ID:", id);
@@ -266,7 +266,7 @@ app.delete("/api/item/getMyDetail/:id", async (req, res) => {
     const deletedItem = await Item.findByIdAndDelete(id);
     if (!deletedItem) {
       return res
-        .status(400)
+        .status(404)
         .json({ success: false, message: "Item not found" });
     }
 
