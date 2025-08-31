@@ -257,6 +257,25 @@ app.get("/api/getMyDetail", isAuthanticated, async (req, res) => {
   }
 });
 
+app.delete("/api/item/getMyDetail/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // ✅ Grab ID from params
+    console.log("Deleting item with ID:", id);
+
+    // If item not found
+    const deletedItem = await Item.findByIdAndDelete(id);
+    if (!deletedItem) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Item not found" });
+    }
+
+    res.json({ success: true, message: "Item deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // Start server
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Server is running on port ${process.env.PORT}`);
